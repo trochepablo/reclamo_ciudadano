@@ -24,10 +24,18 @@
         :breakpoint="500"
       >
         <q-scroll-area class="fit">
-          <q-list padding class="menu-list">
+          <q-list padding>
             <q-item clickable v-ripple to="/">
               <q-item-section avatar>
                 <q-icon name="input" />
+              </q-item-section>
+              <q-item-section>
+                Ver reclamos
+              </q-item-section>
+            </q-item>
+            <q-item clickable v-ripple to="/altaReclamo">
+              <q-item-section avatar>
+                <q-icon name="post_add" />
               </q-item-section>
 
               <q-item-section>

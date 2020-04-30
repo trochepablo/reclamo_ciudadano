@@ -27,6 +27,8 @@
           option-label="label"
           emit-value
           map-options
+          outlined
+          stack-label
           v-model="reclamo.comuna"
           :options="comunas" label="Comuna"
           :rules="[ val => !!val || 'Por favor ingrese comuna']"/>
@@ -37,9 +39,9 @@
             </template>
           </q-file>
 
-          <div>
-            <q-btn label="Agregar" type="submit" color="primary"/>
-            <q-btn label="Volver" to="/" color="primary" flat class="q-ml-sm" />
+          <div class="flex flex-center q-pt-xl">
+            <q-btn label="Agregar" type="submit" color="primary" icon="save"/>
+            <q-btn label="Cancelar" to="/" color="red"  icon="cancel" class="q-ml-sm" />
           </div>
       </q-form>
     </div>

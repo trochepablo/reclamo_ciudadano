@@ -2,7 +2,7 @@
   <q-page class="bg-grey-3">
     <div class="row">
       <div class="col-auto q-pl-md q-pt-md q-pb-xs">
-        <q-btn color="secondary" label="Agregar reclamo" to="/altaReclamo" />
+        <q-btn color="secondary" label="Agregar reclamo" to="/altaReclamo" icon="post_add" />
       </div>
     </div>
     <div class="row">
@@ -37,7 +37,7 @@
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td auto-width>
-              <q-btn size="sm" color="accent" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'" />
+              <q-btn size="sm" color="primary" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'" />
             </q-td>
             <q-td
               v-for="col in props.cols"

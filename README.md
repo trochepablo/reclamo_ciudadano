@@ -2,20 +2,30 @@
 
 Servicio web para realizar solicitudes de reclamo al estado
 
-## Install NodeJS
+## Install [NodeJS](https://nodejs.org/es/)
 ```bash
-Requerido para gestionar package
+Requerido para gestionar package 
 ```
 
 ## Install the dependencies
-```bash
 Nos alojamos con la consola en la ubicacion root del proyecto, en la misma raiz de package.json 
-y ejecumos el siguiente comando: npm install
+y ejecumos el siguiente comando.
+
+```bash
+ npm install
+```
+
+### Install CLI [Quasar framekork](https://quasar.dev/)
+Instalamos CLI (command line input) de quasar para poder manipular al mismo
+
+```bash
+npm install -g @quasar/cli
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
+Luego de la instalación de los packages ejecutamos: 
 ```bash
-Luego de la instalación de los packages ejecutamos: quasar dev
+quasar dev
 ```
 
 ### Start in port 8080

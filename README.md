@@ -2,25 +2,48 @@
 
 Servicio web para realizar solicitudes de reclamo al estado
 
-## Install the dependencies
+## Technologies
+Project is created with:
+* Vuejs version: 2.6.11
+* Vuex version: 3.3.0
+* Quasar version: 1.7.4
+* FireBase
+* FireStorage
+* NodeJs: 13.11.0
+
+## Install [NodeJS](https://nodejs.org/es/)
 ```bash
-npm install
+Requerido para gestionar package 
+```
+
+## Install the dependencies
+Nos alojamos con la consola en la ubicacion root del proyecto, en la misma raiz de package.json 
+y ejecumos el siguiente comando.
+
+```bash
+ npm install
+```
+
+### Install CLI [Quasar framekork](https://quasar.dev/)
+Instalamos CLI (command line input) de quasar para poder manipular al mismo
+
+```bash
+npm install -g @quasar/cli
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
+Luego de la instalación de los packages ejecutamos: 
 ```bash
 quasar dev
 ```
 
-### Lint the files
-```bash
-npm run lint
-```
+### Start in port 8080
+En el archivo quasar-conf-js esta especificado el puerto para desplegar el servicio
 
-### Build the app for production
 ```bash
-quasar build
+devServer: {
+      https: false,
+      port: 8080,
+      open: true // opens browser window automatically
+    }
 ```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).

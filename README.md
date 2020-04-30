@@ -2,6 +2,15 @@
 
 Servicio web para realizar solicitudes de reclamo al estado
 
+## Technologies
+Project is created with:
+* Vuejs version: 2.6.11
+* Vuex version: 3.3.0
+* Quasar version: 1.7.4
+* FireBase
+* FireStorage
+* NodeJs: 13.11.0
+
 ## Install [NodeJS](https://nodejs.org/es/)
 ```bash
 Requerido para gestionar package 

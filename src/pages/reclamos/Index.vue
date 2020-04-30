@@ -50,24 +50,41 @@
           <q-tr v-show="props.expand" :props="props">
             <q-td colspan="100%">
               <div class="q-pa-md row items-start q-gutter-md">
-                <q-card class="my-card" flat bordered>
+                <q-card class="my-card bg-grey-2" flat bordered>
                   <q-card-section horizontal>
                     <q-card-section class="col-auto" >
                       <div class="text-overline">Información de reclamo</div>
                       <div class="text-h5 q-mt-sm q-mb-xs">{{props.row.titulo}}</div>
-                      <div class="text-caption text-grey">
-                        {{props.row.descripcion}}
+                      <div class="q-pt-md">
+                          <q-btn push color="primary" icon="description" label="Ver descripción">
+                            <q-popup-proxy anchor="bottom right" self="bottom left">
+                              <q-banner>
+                                <template v-slot:avatar>
+                                </template>
+                                {{props.row.descripcion}}
+                              </q-banner>
+                            </q-popup-proxy>
+                          </q-btn>
+                      </div>
+                      <div class="q-pt-md">
+                        <q-btn push color="primary" icon="image" label="Ver imagen">
+                            <q-popup-proxy transition-show="flip-down" class="flex flex-center">
+                              <q-banner class="bg-grey-3">
+                                <template v-slot:avatar>
+                                </template>
+                                  <q-card-section class="col-auto">
+                                  <img
+                                    class="rounded-borders"
+                                    :src=props.row.imageurl
+                                  />
+                                </q-card-section>
+                              </q-banner>
+                            </q-popup-proxy>
+                          </q-btn>
                       </div>
                       <!-- <div class="q-pa-md q-gutter-sm">
                         <q-btn color="primary" icon="mail" label="Ver descripción del reclamo" @click="showPageText(props.row)" />
                       </div> -->
-                    </q-card-section>
-
-                    <q-card-section class="col-auto flex flex-right">
-                      <img
-                        class="rounded-borders"
-                        :src=props.row.imageurl
-                      />
                     </q-card-section>
                   </q-card-section>
 

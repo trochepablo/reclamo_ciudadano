@@ -22,6 +22,14 @@
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Por favor ingrese descripción']"/>
 
+            <!-- <q-editor
+              v-model="reclamo.descripcion"
+              :definitions="{ bold: {label: 'Bold', icon: null, tip: 'My bold tooltip' }}"
+              @paste.native="evt => pasteCapture(evt)"
+              @drop.native="evt => dropCapture(evt)"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 || 'Por favor ingrese titulo']"/> -->
+
           <q-select
           option-value="value"
           option-label="label"
@@ -33,13 +41,13 @@
           :options="comunas" label="Comuna"
           :rules="[ val => !!val || 'Por favor ingrese comuna']"/>
 
-          <q-file required  v-model="selectedFile" @input="uploadImage(selectedFile)"  filled label="Restringido para imagenes" accept=".jpg, .png, image/*">
+          <q-file required  v-model="selectedFile" @input="uploadImage(selectedFile)"  filled label="Seleccione una imagen" accept=".jpg, .png, image/*">
             <template v-slot:prepend>
-              <q-icon name="attach_file" />
+              <q-icon name="image" />
             </template>
           </q-file>
 
-          <div class="flex flex-center q-pt-xl">
+          <div>
             <q-btn label="Agregar" type="submit" color="primary" icon="save"/>
             <q-btn label="Cancelar" to="/" color="red"  icon="cancel" class="q-ml-sm" />
           </div>
@@ -51,6 +59,7 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import Reclamo from 'src/entity/reclamo'
+import { Notify } from 'quasar'
 const initReclamo = new Reclamo()
 
 export default {
@@ -72,12 +81,20 @@ export default {
     ...mapMutations('reclamos', ['updateReclamo', 'setimageName']),
     onSubmit () {
       this.$refs.formReclamo.validate().then(success => {
-        if (success) {
+        if (success && this.selectedFile) {
           this.saveReclamo()
           this.getReclamos()
           this.selectedFile = null
           this.reclamo = Object.assign({}, initReclamo)
           this.$refs.formReclamo.resetValidation()
+        } else {
+          if (!this.selectedFile) {
+            Notify.create({
+              message: 'Debe seleccionar una imagen.',
+              color: 'negative',
+              position: 'bottom'
+            })
+          }
         }
       })
     }
@@ -85,6 +102,7 @@ export default {
   watch: {
     reclamo: {
       handler (newReclamo) {
+        debugger
         this.updateReclamo(newReclamo)
       },
       deep: true

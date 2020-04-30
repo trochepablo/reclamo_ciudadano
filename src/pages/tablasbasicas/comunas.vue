@@ -1,6 +1,6 @@
 <template>
-  <q-page class="bg-grey-3 q-pa-md column">
-      <div class="col q-pl-md q-pb-md q-pr-md q-pt-xs">
+  <q-page class="bg-grey-3 q-pa-md col-auto">
+      <div class="col-auto q-pl-md q-pb-md q-pr-md q-pt-xs">
         <q-table
           title="Listado de comunas de la Ciudad Autónoma de Buenos Aires"
           :data="comunas"

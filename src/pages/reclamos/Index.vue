@@ -1,12 +1,12 @@
 <template>
-  <q-page class="bg-grey-3 column">
+  <q-page class="bg-grey-3">
     <div class="row">
-      <div class="q-pl-md q-pt-md q-pb-xs">
+      <div class="col-auto q-pl-md q-pt-md q-pb-xs">
         <q-btn color="secondary" label="Agregar reclamo" to="/altaReclamo" />
       </div>
     </div>
     <div class="row">
-      <div class="col q-pl-md q-pb-md q-pr-md q-pt-xs">
+      <div class="col-auto col-12 q-pl-md q-pb-md q-pr-md q-pt-xs">
         <q-table
           title="Reclamos"
           :data="reclamos"
@@ -52,7 +52,7 @@
               <div class="q-pa-md row items-start q-gutter-md">
                 <q-card class="my-card" flat bordered>
                   <q-card-section horizontal>
-                    <q-card-section class="q-pt-md" >
+                    <q-card-section class="col-auto" >
                       <div class="text-overline">Información de reclamo</div>
                       <div class="text-h5 q-mt-sm q-mb-xs">{{props.row.titulo}}</div>
                       <div class="text-caption text-grey">
@@ -63,7 +63,7 @@
                       </div> -->
                     </q-card-section>
 
-                    <q-card-section class="col-2 flex flex-right">
+                    <q-card-section class="col-auto flex flex-right">
                       <img
                         class="rounded-borders"
                         :src=props.row.imageurl

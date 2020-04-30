@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 <template>
   <q-page class="bg-grey-3 row flex flex-center">
-    <div class="bg-white col-4 q-pa-xl" style="border: 4px solid #ccc;">
+    <div class="bg-white col-auto q-pa-xl" style="border: 4px solid #ccc;">
       <h4><u>Información del reclamo</u></h4>
       <q-form ref="formReclamo" @submit="onSubmit"
-        class="q-gutter-md">
+        class="q-gutter-md col-auto">
           <q-input
             filled
             v-model="reclamo.titulo"

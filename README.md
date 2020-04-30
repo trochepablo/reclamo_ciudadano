@@ -2,6 +2,11 @@
 
 Servicio web para realizar solicitudes de reclamo al estado
 
+## Install NodeJS
+```bash
+Requerido para gestionar package
+```
+
 ## Install the dependencies
 ```bash
 npm install

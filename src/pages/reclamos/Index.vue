@@ -6,12 +6,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-auto col-12 q-pl-md q-pb-md q-pr-md q-pt-xs">
+      <div class="col-auto col-12 q-pa-md">
         <q-table
           title="Reclamos"
           :data="reclamos"
           :columns="columns"
-          row-key="titulo"
+          row-key="id"
           flat
           :filter="filter"
           bordered
@@ -25,7 +25,9 @@
           </template>
           <template v-slot:header="props">
             <q-tr :props="props">
-              <q-th auto-width />
+              <q-th auto-width>
+                Acciones
+             </q-th>
               <q-th
                 v-for="col in props.cols"
                 :key="col.name"
@@ -37,7 +39,21 @@
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td auto-width>
-              <q-btn size="sm" color="primary" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'expand_less' : 'expand_more'" />
+              <q-btn size="md" color="primary" dense @click="props.expand = !props.expand" :icon="props.expand ? 'expand_less' : 'expand_more'" />
+              <q-btn size="md" color="red" dense icon="delete" @click="confirm = !confirm" />
+                  <q-dialog v-model="confirm" persistent>
+                  <q-card>
+                    <q-card-section class="row items-center">
+                      <q-avatar icon="announcement" color="red" text-color="white" />
+                      <span class="q-ml-sm">¿Estas seguro que quieres borrar este reclamo?</span>
+                    </q-card-section>
+
+                    <q-card-actions align="center">
+                      <q-btn flat label="Borrar" color="red" @click="deleteReclamo(props.row.id)" v-close-popup />
+                      <q-btn flat label="Cancelar" color="primary" v-close-popup />
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
             </q-td>
             <q-td
               v-for="col in props.cols"
@@ -50,75 +66,30 @@
           <q-tr v-show="props.expand" :props="props">
             <q-td colspan="100%">
               <div class="">
-                <!-- <q-card class="my-card bg-grey-2" flat bordered>
-                  <q-card-section horizontal>
-                    <q-card-section class="col-auto" >
-                      <div class="text-overline">Información de reclamo</div>
-                      <div class="text-h5 q-mt-sm q-mb-xs">{{props.row.titulo}}</div>
-                      <div class="q-pt-md">
-                          <q-btn push color="purple" icon="description" label="Ver descripción">
-                            <q-popup-proxy anchor="bottom right" self="bottom left">
-                              <q-banner>
-                                <template v-slot:avatar>
-                                </template>
-                                {{props.row.descripcion}}
-                              </q-banner>
-                            </q-popup-proxy>
-                          </q-btn>
-                      </div>
-                      <div class="q-pt-md">
-                        <q-btn push color="purple" icon="image" label="Ver imagen">
-                            <q-popup-proxy transition-show="flip-down" class="flex flex-center">
-                              <q-banner class="bg-grey-3">
-                                <template v-slot:avatar>
-                                </template>
-                                  <q-card-section class="col-auto">
-                                  <img
-                                    class="rounded-borders"
-                                    :src=props.row.imageurl
-                                  />
-                                </q-card-section>
-                              </q-banner>
-                            </q-popup-proxy>
-                          </q-btn>
-                      </div>
+                <q-card class="my-card" flat bordered>
+                    <q-card-section horizontal>
+                      <q-card-section class="q-pt-xs">
+                        <div class="text-overline">Detalle del reclamo</div>
+                        <div class="text-h5 q-mt-sm q-mb-xs">{{props.row.titulo}}</div>
+                        <div class="text-caption text-grey">
+                          {{props.row.descripcion}}
+                        </div>
+                      </q-card-section>
+
+                      <q-card-section class="col-5 flex flex-center">
+                        <img class="rounded-borders" :src=props.row.imageurl />
+                      </q-card-section>
                     </q-card-section>
-                  </q-card-section>
 
-                  <q-separator />
+                    <q-separator />
 
-                  <q-card-actions>
-                    <q-btn flat round icon="location_on" />
-                    <div class="text-h5"> Comuna N° {{props.row.comuna}} </div>
-                  </q-card-actions>
-                </q-card> -->
-                    <q-card class="my-card" flat bordered>
-      <q-card-section horizontal>
-        <q-card-section class="q-pt-xs">
-          <div class="text-overline">Detalle del reclamo</div>
-          <div class="text-h5 q-mt-sm q-mb-xs">{{props.row.titulo}}</div>
-          <div class="text-caption text-grey">
-            {{props.row.descripcion}}
-          </div>
-        </q-card-section>
-
-        <q-card-section class="col-5 flex flex-center">
-          <img class="rounded-borders" :src=props.row.imageurl />
-        </q-card-section>
-      </q-card-section>
-
-      <q-separator />
-
-      <q-card-actions>
-        <q-btn flat round icon="location_on" />
-        <q-btn flat>
-          {{comunaDesc(props.row.comuna)}}
-        </q-btn>
-        <!-- <q-btn flat color="primary">
-        </q-btn> -->
-      </q-card-actions>
-    </q-card>
-
+                    <q-card-actions>
+                      <q-btn flat round icon="location_on" />
+                      <q-btn flat>
+                        {{comunaDesc(props.row.comuna)}}
+                      </q-btn>
+                    </q-card-actions>
+                  </q-card>
               </div>
             </q-td>
           </q-tr>
@@ -126,10 +97,6 @@
       </q-table>
       </div>
     </div>
-    <!-- <div>
-      <pageText v-show="showDesc">
-      </pageText>
-    </div> -->
   </q-page>
 </template>
 
@@ -151,9 +118,11 @@ export default {
   },
   data () {
     return {
+      confirm: false,
       showDesc: false,
       filter: null,
       columns: [
+        // { name: 'id', field: 'id', visible: false },
         { name: 'titulo', label: 'Titulo', field: 'titulo', sortable: true, align: 'center' },
         { name: 'descripcion', label: 'Descripción', field: 'descripcion', sortable: true, align: 'center' },
         { name: 'comuna', label: 'Comuna', field: 'comuna', align: 'center', sortable: true }
@@ -164,11 +133,7 @@ export default {
     comunaDesc (comunaSelected) {
       return this.comunas.find(comuna => comuna.value === comunaSelected).label
     },
-    showPageText (reclamo) {
-      this.setReclamoToShow(reclamo)
-      this.showDesc = !this.showDesc
-    },
-    ...mapActions('reclamos', ['getReclamos']),
+    ...mapActions('reclamos', ['getReclamos', 'deleteReclamo']),
     ...mapMutations('reclamos', ['setReclamos', 'setReclamoToShow'])
   }
 }

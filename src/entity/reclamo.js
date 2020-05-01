@@ -1,5 +1,6 @@
 class Reclamo {
   constructor () {
+    this.id = ''
     this.titulo = ''
     this.descripcion = ''
     this.comuna = 1

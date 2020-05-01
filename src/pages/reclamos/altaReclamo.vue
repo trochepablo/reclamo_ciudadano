@@ -82,7 +82,6 @@ export default {
       this.$refs.formReclamo.validate().then(success => {
         if (success && this.selectedFile) {
           this.saveReclamo()
-          this.getReclamos()
           this.selectedFile = null
           this.reclamo = Object.assign({}, initReclamo)
           this.$refs.formReclamo.resetValidation()

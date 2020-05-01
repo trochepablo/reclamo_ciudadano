@@ -19,6 +19,7 @@ export async function getReclamos ({ commit }) {
     Notify.create({
       message: 'No se puedieron recuperar los reclamos',
       color: 'negative',
+      icon: 'announcement',
       position: 'bottom'
     })
   } finally {
@@ -26,16 +27,28 @@ export async function getReclamos ({ commit }) {
   }
 }
 
-export async function saveReclamo ({ state, commit }) {
+export async function saveReclamo ({ dispatch, state, commit }) {
   try {
     Loading.show({
       message: 'Creando reclamo.<br/><span class="text-secondary">Por favor espere...</span>'
     })
-    const reclamo = state.reclamo
-    await db.collection('reclamos').add(reclamo)
+    const reclamo = Object.assign({}, state.reclamo)
+    await db.collection('reclamos').add(reclamo).then(function (value) {
+      reclamo.id = value.id
+    }).catch(function (err) {
+      Notify.create({
+        message: `No se puedieron guardar el reclamos. Error: ${err}`,
+        color: 'negative',
+        icon: 'announcement',
+        position: 'bottom',
+        timeout: 5000
+      })
+    })
+    db.collection('reclamos').doc(reclamo.id).update(reclamo)
     Notify.create({
       message: 'Su reclamo ha sido creado con éxito. ',
       color: 'positive',
+      icon: 'announcement',
       position: 'bottom',
       timeout: 5000
     })
@@ -43,13 +56,15 @@ export async function saveReclamo ({ state, commit }) {
   } catch (error) {
     console.log(error)
     Notify.create({
-      message: 'No se puedieron guardar el reclamos. ',
+      message: 'No se puedo guardar el reclamo. ',
       color: 'negative',
+      icon: 'announcement',
       position: 'bottom',
       timeout: 5000
     })
   } finally {
     Loading.hide()
+    dispatch('getReclamos')
   }
 }
 
@@ -67,12 +82,42 @@ export async function uploadImage ({ commit }, fileSelected) {
     console.log(error)
     commit('setImageName', { fullPath: null })
     Notify.create({
-      message: 'No se puedieron subir imagen, reintente. ',
+      message: 'No se pudo subir imagen, reintente. ',
       color: 'negative',
+      position: 'bottom',
+      icon: 'announcement',
+      timeout: 5000
+    })
+  } finally {
+    Loading.hide()
+  }
+}
+
+export async function deleteReclamo ({ dispatch, commit }, id) {
+  try {
+    Loading.show({
+      message: 'Creando reclamo.<br/><span class="text-secondary">Por favor espere...</span>'
+    })
+    await db.collection('reclamos').doc(id).delete().then(function () {
+      Notify.create({
+        message: 'Su reclamo ha sido eliminado. ',
+        color: 'blue',
+        position: 'bottom',
+        icon: 'announcement',
+        timeout: 5000
+      })
+    })
+  } catch (error) {
+    console.log(error)
+    Notify.create({
+      message: 'No se pudo guardar el reclamo. ',
+      color: 'negative',
+      icon: 'announcement',
       position: 'bottom',
       timeout: 5000
     })
   } finally {
     Loading.hide()
+    dispatch('getReclamos')
   }
 }

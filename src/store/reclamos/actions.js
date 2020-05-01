@@ -8,12 +8,15 @@ export async function getReclamos ({ commit }) {
     Loading.show({
       message: 'Cargando datos.<br/><span class="text-secondary">Por favor espere...</span>'
     })
-    const response = await db.collection('reclamos').get()
-    const list = []
-    response.forEach(res => {
-      list.push({ ...res.data() })
+    await db.collection('reclamos').get().then(function (querySnapshot) {
+      //const list = [...querySnapshot]
+      const list = []
+      querySnapshot.forEach(function (doc) {
+        const data = doc.data()
+        list.push(data)
+      })
+      commit('setReclamos', list)
     })
-    commit('setReclamos', list)
   } catch (error) {
     console.log(error)
     Notify.create({
@@ -95,6 +98,7 @@ export async function uploadImage ({ commit }, fileSelected) {
 
 export async function deleteReclamo ({ dispatch, commit }, id) {
   try {
+    debugger
     Loading.show({
       message: 'Creando reclamo.<br/><span class="text-secondary">Por favor espere...</span>'
     })

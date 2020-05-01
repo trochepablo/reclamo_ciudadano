@@ -76,7 +76,7 @@
                         </div>
                       </q-card-section>
 
-                      <q-card-section class="col-5 flex flex-center">
+                      <q-card-section class="col-5 flex flex-right">
                         <img class="rounded-borders" :src=props.row.imageurl />
                       </q-card-section>
                     </q-card-section>
@@ -102,19 +102,16 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-// import pageText from 'src/components/pageText'
 
 export default {
-  // components: {
-  //   pageText
-  // },
   name: 'listReclamos',
   computed: {
     ...mapGetters('reclamos', ['reclamos']),
     ...mapGetters('comunas', ['comunas'])
   },
-  created: function () {
+  mounted: function () {
     this.getReclamos()
+    console.log('created :' + this.getReclamos())
   },
   data () {
     return {
@@ -122,7 +119,6 @@ export default {
       showDesc: false,
       filter: null,
       columns: [
-        // { name: 'id', field: 'id', visible: false },
         { name: 'titulo', label: 'Titulo', field: 'titulo', sortable: true, align: 'center' },
         { name: 'descripcion', label: 'Descripción', field: 'descripcion', sortable: true, align: 'center' },
         { name: 'comuna', label: 'Comuna', field: 'comuna', align: 'center', sortable: true }

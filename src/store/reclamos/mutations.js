@@ -1,5 +1,4 @@
 export function setReclamos (state, reclamos) {
-  debugger
   state.reclamos = reclamos
 }
 export function updateReclamo (state, reclamo) {

@@ -1,5 +1,3 @@
-/* eslint-disable spaced-comment */
-
 import { db, st } from 'boot/firebase'
 import { Notify, Loading } from 'quasar'
 
@@ -9,7 +7,6 @@ export async function getReclamos ({ commit }) {
       message: 'Cargando datos.<br/><span class="text-secondary">Por favor espere...</span>'
     })
     await db.collection('reclamos').get().then(function (querySnapshot) {
-      //const list = [...querySnapshot]
       const list = []
       querySnapshot.forEach(function (doc) {
         const data = doc.data()
@@ -98,7 +95,6 @@ export async function uploadImage ({ commit }, fileSelected) {
 
 export async function deleteReclamo ({ dispatch, commit }, id) {
   try {
-    debugger
     Loading.show({
       message: 'Creando reclamo.<br/><span class="text-secondary">Por favor espere...</span>'
     })

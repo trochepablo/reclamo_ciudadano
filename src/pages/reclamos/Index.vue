@@ -137,7 +137,6 @@ export default {
   },
   methods: {
     showPageText (reclamo) {
-      debugger
       this.setReclamoToShow(reclamo)
       this.showDesc = !this.showDesc
     },

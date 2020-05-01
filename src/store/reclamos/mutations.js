@@ -7,7 +7,6 @@ export function updateReclamo (state, reclamo) {
   state.reclamo.comuna = reclamo.comuna
 }
 export function setReclamoToShow (state, reclamo) {
-  debugger
   state.reclamo = reclamo
 }
 export function setImageName (state, payload) {

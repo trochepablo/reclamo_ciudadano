@@ -40,7 +40,6 @@ export default {
     ...mapGetters('reclamos', ['getReclamoActual'])
   },
   data () {
-    debugger
     return {
       // eslint-disable-next-line spaced-comment
       // Object.assign(initReclamo)

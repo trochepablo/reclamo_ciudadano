@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 <template>
   <q-page class="bg-grey-3 row flex flex-center">
     <div class="bg-white col-auto q-pa-xl" style="border: 4px solid #ccc;">
@@ -102,7 +101,6 @@ export default {
   watch: {
     reclamo: {
       handler (newReclamo) {
-        debugger
         this.updateReclamo(newReclamo)
       },
       deep: true

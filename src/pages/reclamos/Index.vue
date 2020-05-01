@@ -11,7 +11,6 @@
           title="Reclamos"
           :data="reclamos"
           :columns="columns"
-          row-key="id"
           flat
           :filter="filter"
           bordered
@@ -37,23 +36,10 @@
             </q-tr>
         </template>
         <template v-slot:body="props">
-          <q-tr :props="props">
+          <q-tr :props="props" >
             <q-td auto-width>
               <q-btn size="md" color="primary" dense @click="props.expand = !props.expand" :icon="props.expand ? 'expand_less' : 'expand_more'" />
-              <q-btn size="md" color="red" dense icon="delete" @click="confirm = !confirm" />
-                  <q-dialog v-model="confirm" persistent>
-                  <q-card>
-                    <q-card-section class="row items-center">
-                      <q-avatar icon="announcement" color="red" text-color="white" />
-                      <span class="q-ml-sm">¿Estas seguro que quieres borrar este reclamo?</span>
-                    </q-card-section>
-
-                    <q-card-actions align="center">
-                      <q-btn flat label="Borrar" color="red" @click="deleteReclamo(props.row.id)" v-close-popup />
-                      <q-btn flat label="Cancelar" color="primary" v-close-popup />
-                    </q-card-actions>
-                  </q-card>
-                </q-dialog>
+              <q-btn size="md" color="red" dense icon="delete" @click="showDialogDelete(props.row)" />
             </q-td>
             <q-td
               v-for="col in props.cols"
@@ -69,7 +55,7 @@
                 <q-card class="my-card" flat bordered>
                     <q-card-section horizontal>
                       <q-card-section class="q-pt-xs">
-                        <div class="text-overline">Detalle del reclamo</div>
+                        <div class="text-overline">Código del reclamo: {{props.row.id}}</div>
                         <div class="text-h5 q-mt-sm q-mb-xs">{{props.row.titulo}}</div>
                         <div class="text-caption text-grey">
                           {{props.row.descripcion}}
@@ -102,6 +88,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { Dialog } from 'quasar'
 
 export default {
   name: 'listReclamos',
@@ -118,7 +105,9 @@ export default {
       confirm: false,
       showDesc: false,
       filter: null,
+      selectedRow: null,
       columns: [
+        { name: 'id', label: 'id', field: 'id', sortable: true, align: 'center' },
         { name: 'titulo', label: 'Titulo', field: 'titulo', sortable: true, align: 'center' },
         { name: 'descripcion', label: 'Descripción', field: 'descripcion', sortable: true, align: 'center' },
         { name: 'comuna', label: 'Comuna', field: 'comuna', align: 'center', sortable: true }
@@ -126,6 +115,24 @@ export default {
     }
   },
   methods: {
+    showDialogDelete (reclamo) {
+      Dialog.create({
+        title: 'Eliminar reclamo',
+        message: 'Esta seguro que desea eliminar reclamo?',
+        cancel: {
+          push: true,
+          label: 'Cancelar'
+        },
+        ok: {
+          push: true,
+          color: 'negative',
+          label: 'Eliminar'
+        },
+        persistent: true
+      }).onOk(() => {
+        this.deleteReclamo(reclamo.id)
+      })
+    },
     comunaDesc (comunaSelected) {
       return this.comunas.find(comuna => comuna.value === comunaSelected).label
     },

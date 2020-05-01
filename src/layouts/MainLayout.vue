@@ -27,7 +27,7 @@
           <q-list padding>
             <q-item clickable v-ripple to="/">
               <q-item-section avatar>
-                <q-icon name="input" />
+                <q-icon name="view_list" />
               </q-item-section>
               <q-item-section>
                 Ver reclamos

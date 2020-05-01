@@ -37,7 +37,7 @@
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td auto-width>
-              <q-btn size="sm" color="primary" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'remove' : 'add'" />
+              <q-btn size="sm" color="primary" round dense @click="props.expand = !props.expand" :icon="props.expand ? 'expand_less' : 'expand_more'" />
             </q-td>
             <q-td
               v-for="col in props.cols"
@@ -56,7 +56,7 @@
                       <div class="text-overline">Información de reclamo</div>
                       <div class="text-h5 q-mt-sm q-mb-xs">{{props.row.titulo}}</div>
                       <div class="q-pt-md">
-                          <q-btn push color="primary" icon="description" label="Ver descripción">
+                          <q-btn push color="purple" icon="description" label="Ver descripción">
                             <q-popup-proxy anchor="bottom right" self="bottom left">
                               <q-banner>
                                 <template v-slot:avatar>
@@ -67,7 +67,7 @@
                           </q-btn>
                       </div>
                       <div class="q-pt-md">
-                        <q-btn push color="primary" icon="image" label="Ver imagen">
+                        <q-btn push color="purple" icon="image" label="Ver imagen">
                             <q-popup-proxy transition-show="flip-down" class="flex flex-center">
                               <q-banner class="bg-grey-3">
                                 <template v-slot:avatar>

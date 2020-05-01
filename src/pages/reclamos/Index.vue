@@ -107,7 +107,6 @@ export default {
       filter: null,
       selectedRow: null,
       columns: [
-        { name: 'id', label: 'id', field: 'id', sortable: true, align: 'center' },
         { name: 'titulo', label: 'Titulo', field: 'titulo', sortable: true, align: 'center' },
         { name: 'descripcion', label: 'Descripción', field: 'descripcion', sortable: true, align: 'center' },
         { name: 'comuna', label: 'Comuna', field: 'comuna', align: 'center', sortable: true }

@@ -49,8 +49,8 @@
           </q-tr>
           <q-tr v-show="props.expand" :props="props">
             <q-td colspan="100%">
-              <div class="q-pa-md row items-start q-gutter-md">
-                <q-card class="my-card bg-grey-2" flat bordered>
+              <div class="">
+                <!-- <q-card class="my-card bg-grey-2" flat bordered>
                   <q-card-section horizontal>
                     <q-card-section class="col-auto" >
                       <div class="text-overline">Información de reclamo</div>
@@ -82,9 +82,6 @@
                             </q-popup-proxy>
                           </q-btn>
                       </div>
-                      <!-- <div class="q-pa-md q-gutter-sm">
-                        <q-btn color="primary" icon="mail" label="Ver descripción del reclamo" @click="showPageText(props.row)" />
-                      </div> -->
                     </q-card-section>
                   </q-card-section>
 
@@ -94,7 +91,34 @@
                     <q-btn flat round icon="location_on" />
                     <div class="text-h5"> Comuna N° {{props.row.comuna}} </div>
                   </q-card-actions>
-                </q-card>
+                </q-card> -->
+                    <q-card class="my-card" flat bordered>
+      <q-card-section horizontal>
+        <q-card-section class="q-pt-xs">
+          <div class="text-overline">Detalle del reclamo</div>
+          <div class="text-h5 q-mt-sm q-mb-xs">{{props.row.titulo}}</div>
+          <div class="text-caption text-grey">
+            {{props.row.descripcion}}
+          </div>
+        </q-card-section>
+
+        <q-card-section class="col-5 flex flex-center">
+          <img class="rounded-borders" :src=props.row.imageurl />
+        </q-card-section>
+      </q-card-section>
+
+      <q-separator />
+
+      <q-card-actions>
+        <q-btn flat round icon="location_on" />
+        <q-btn flat>
+          {{comunaDesc(props.row.comuna)}}
+        </q-btn>
+        <!-- <q-btn flat color="primary">
+        </q-btn> -->
+      </q-card-actions>
+    </q-card>
+
               </div>
             </q-td>
           </q-tr>
@@ -119,7 +143,8 @@ export default {
   // },
   name: 'listReclamos',
   computed: {
-    ...mapGetters('reclamos', ['reclamos'])
+    ...mapGetters('reclamos', ['reclamos']),
+    ...mapGetters('comunas', ['comunas'])
   },
   created: function () {
     this.getReclamos()
@@ -136,6 +161,9 @@ export default {
     }
   },
   methods: {
+    comunaDesc (comunaSelected) {
+      return this.comunas.find(comuna => comuna.value === comunaSelected).label
+    },
     showPageText (reclamo) {
       this.setReclamoToShow(reclamo)
       this.showDesc = !this.showDesc

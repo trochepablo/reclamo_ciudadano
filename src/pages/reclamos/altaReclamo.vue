@@ -2,7 +2,7 @@
   <q-page class="bg-grey-3 row flex flex-center">
     <div class="bg-white col-auto q-pa-xl" style="border: 4px solid #ccc;">
       <h4><u>Información del reclamo</u></h4>
-      <q-form ref="formReclamo" @submit="onSubmit"
+      <q-form ref="formReclamo" @submit.prevent="onSubmit"
         class="q-gutter-md col-auto">
           <q-input
             filled
@@ -38,9 +38,9 @@
           stack-label
           v-model="reclamo.comuna"
           :options="comunas" label="Comuna"
-          :rules="[ val => !!val || 'Por favor ingrese comuna']"/>
+          :rules="[ val => !!val && val != null || 'Por favor ingrese comuna']"/>
 
-          <q-file required  v-model="selectedFile" @input="uploadImage(selectedFile)"  filled label="Seleccione una imagen" accept=".jpg, .png, image/*">
+          <q-file  v-model="selectedFile" @input="uploadImage(selectedFile)"  filled label="Seleccione una imagen" accept=".jpg, .png, image/*" :rules="[ val => !!val && val != null || 'Por favor ingrese comuna']">
             <template v-slot:prepend>
               <q-icon name="image" />
             </template>

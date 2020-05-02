@@ -3,7 +3,7 @@ class Reclamo {
     this.id = ''
     this.titulo = ''
     this.descripcion = ''
-    this.comuna = 1
+    this.comuna = null
     this.imageurl = null
     this.fullpathimage = null
   }

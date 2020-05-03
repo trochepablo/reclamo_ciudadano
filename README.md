@@ -33,7 +33,7 @@ Instalamos CLI (command line input) de quasar para poder manipular al mismo
 npm install -g @quasar/cli
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Start the app in development mode
 Luego de la instalación de los packages ejecutamos: 
 ```bash
 quasar dev

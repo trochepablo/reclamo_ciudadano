@@ -31,6 +31,7 @@ export default function (/* { store, ssrContext } */) {
     firebase.auth().onAuthStateChanged(user => {
       const authorization = to.matched.some(record => record.meta.autentificate)
       if (authorization && !user) {
+        console.log(to)
         next('login')
       } else if (!authorization && user) {
         next('/')

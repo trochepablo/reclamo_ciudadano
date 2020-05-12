@@ -3,17 +3,12 @@
 <q-page-container>
   <q-page class="bg-grey-3 row q-pa-xl flex flex-center">
     <div style="width: 444px">
-        <form @submit.prevent="login">
+        <form @submit.prevent="create">
             <q-card>
               <q-card-section>
-                <q-card-section>
-                  <div class="text-h5 q-mt-sm q-mb-xs">Ingreso de usuario</div>
-                </q-card-section>
-                <div class="flex flex-center">
-                  <q-avatar size="200px">
-                    <img src="statics/avatar_circle_blue.png">
-                  </q-avatar>
-                </div>
+                <div class="text-h5 q-mt-sm q-mb-xs">Agregar nuevo usuario</div>
+              </q-card-section>
+              <q-card-section>
                 <div class="q-pa-xs">
                   <q-input outlined  v-model="user" label="Usuario/Correo"/>
                 </div>
@@ -23,8 +18,8 @@
               </q-card-section>
               <q-separator />
               <q-card-actions vertical>
-                <q-btn label="Acceder" type="submit" color="primary" icon="input"/>
-                <q-btn label="Registrar" to="/register" type="button" color="positive" icon="person_add"/>
+                <q-btn label="Registrar" type="submit" color="primary" icon="person_add"/>
+                <q-btn label="Cancelar" to="/login" color="red" icon="keyboard_backspace"/>
               </q-card-actions>
             </q-card>
         </form>
@@ -46,13 +41,9 @@ export default {
     }
   },
   methods: {
-    login () {
-      firebase.auth().signInWithEmailAndPassword(this.user, this.password)
-        .then((user) => Notify.create({
-          message: `Bienvenido! ${user.user.email}`,
-          color: 'info',
-          position: 'bottom'
-        }), (error) => {
+    create () {
+      firebase.auth().createUserWithEmailAndPassword(this.user, this.password)
+        .then((user) => this.$router.back(), (error) => {
           Notify.create({
             message: error.message,
             color: 'negative',

@@ -76,6 +76,7 @@
 <script>
 import Breadcrumbs from '../components/Breadcrumbs'
 import firebase from 'firebase'
+import { Notify } from 'quasar'
 
 export default {
   name: 'MainLayout',
@@ -94,7 +95,11 @@ export default {
   methods: {
     logout () {
       firebase.auth().signOut().then(function () {
-        console.log('deslogeo exitoso')
+        Notify.create({
+          message: 'Adios!',
+          color: 'info',
+          position: 'bottom'
+        })
       })
     }
   }

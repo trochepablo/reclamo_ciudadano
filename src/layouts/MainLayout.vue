@@ -14,7 +14,16 @@
           Reclamo Ciudadano
         </q-toolbar-title>
 
-        <div>{{ todaysDate }}</div>
+        <div class="q-pa-md q-gutter-sm">
+          <q-chip>
+            <q-avatar>
+              <img src="statics/avatar_circle_blue.png">
+            </q-avatar>
+            {{ currentUser }}
+          </q-chip>
+          <q-btn class="glossy" size="12px" round type="button" @click="logout" color="red" text-color="white" icon="exit_to_app" >
+          </q-btn>
+        </div>
       </q-toolbar>
     </q-header>
     <q-drawer
@@ -65,8 +74,8 @@
 </template>
 
 <script>
-import { date } from 'quasar'
 import Breadcrumbs from '../components/Breadcrumbs'
+import firebase from 'firebase'
 
 export default {
   name: 'MainLayout',
@@ -75,13 +84,18 @@ export default {
     Breadcrumbs
   },
   computed: {
-    todaysDate () {
-      return date.formatDate(Date.now(), 'DD/MM/YYYY HH:mm')
-    }
+    currentUser () { return firebase.auth().currentUser.email }
   },
   data () {
     return {
       leftDrawerOpen: false
+    }
+  },
+  methods: {
+    logout () {
+      firebase.auth().signOut().then(function () {
+        console.log('deslogeo exitoso')
+      })
     }
   }
 }

@@ -49,3 +49,11 @@ devServer: {
       open: true // opens browser window automatically
     }
 ```
+
+### Utils extension for visual-code
+En el archivo quasar-conf-js esta especificado el puerto para desplegar el servicio
+
+```bash
+Vetur: interprete de files vue, snippers, etc
+Eslint: Analizador y corrector de codigo java-script
+```

@@ -1,6 +1,11 @@
 
 const routes = [
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('components/Login.vue')
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -10,7 +15,8 @@ const routes = [
         meta: {
           breadcrumb: [
             { name: 'Reclamos' }
-          ]
+          ],
+          autentificate: true
         }
       },
       {
@@ -20,7 +26,8 @@ const routes = [
           breadcrumb: [
             { name: 'Tablas Básicas' },
             { name: 'Comunas', link: 'comunas' }
-          ]
+          ],
+          autentificate: true
         }
       },
       {
@@ -30,7 +37,8 @@ const routes = [
           breadcrumb: [
             { name: 'Reclamos' },
             { name: 'Alta de reclamo', link: 'altaReclamo' }
-          ]
+          ],
+          autentificate: true
         }
       }
     ]

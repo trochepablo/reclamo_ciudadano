@@ -1,6 +1,6 @@
 # piedra papel tijera lagarto spock (UNQ)
 
-Aplicación web para el entreteniendo
+Aplicación web para el entretenimiento
 
 ## Technologies
 Project is created with:
